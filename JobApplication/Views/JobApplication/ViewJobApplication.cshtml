@@ -67,9 +67,9 @@
                                     </tr>
                                 </thead>
                                 <tbody class="text-end">
-                                        @for (int i = 0; i < Model.objEducationDetails.Count(); i++)
-                                        {
-                                            int j = i + 1;
+                                    @for (int i = 0; i < Model.objEducationDetails.Count(); i++)
+                                    {
+                                        int j = i + 1;
                                         <tr>
                                             <td scope="row">@j</td>
                                             <input type="hidden" asp-for="objEducationDetails[i].EducationDetailId" />
@@ -114,6 +114,68 @@
                         </div>
                     </fieldset>
                     <fieldset class="scheduler-border mb-2">
+                        <legend class="scheduler-border">Known Languages</legend>
+                        <div class="control-group" id="">
+                            <table class="table table-bordered" id="LanguaDetails">
+                                <thead>
+                                    <tr class="text-center">
+                                        <th scope="col"></th>
+                                        <th scope="col">Language</th>
+                                        <th scope="col">Read</th>
+                                        <th scope="col">Write</th>
+                                        <th scope="col">Speak</th>
+                                        <th></th>
+                                    </tr>
+                                </thead>
+                                <tbody class="text-end">
+                                    @for (int i = 0; i < Model.objLanguageDetails.Count(); i++)
+                                    {
+                                        int j = i + 1;
+                                        <tr>
+                                            <td scope="row">@j</td>
+                                            <input type="hidden" asp-for="objLanguageDetails[i].LanguageId" />
+                                            <td class="text-start">@Html.Raw(Model.objLanguageDetails[i].Language)</td>
+                                            <td class="text-start">@Html.Raw(Model.objLanguageDetails[i].IsRead)</td>
+                                            <td class="text-start">@Html.Raw(Model.objLanguageDetails[i].IsWrite)</td>
+                                            <td class="text-start">@Html.Raw(Model.objLanguageDetails[i].IsSpeak)</td>
+                                        </tr>
+                                    }
+                                </tbody>
+                            </table>
+                        </div>
+                    </fieldset>
+                    <fieldset class="scheduler-border mb-2">
+                        <legend class="scheduler-border">Technical Skills</legend>
+                        <div class="control-group" id="">
+                            <table class="table table-bordered" id="TechSkillDetails">
+                                <thead>
+                                    <tr class="text-center">
+                                        <th scope="col"></th>
+                                        <th scope="col">Tech Skill</th>
+                                        <th scope="col">Beginner</th>
+                                        <th scope="col">Intermediate</th>
+                                        <th scope="col">Expert</th>
+                                        <th></th>
+                                    </tr>
+                                </thead>
+                                <tbody class="text-end">
+                                    @for (int i = 0; i < Model.objTechSkillDetails.Count(); i++)
+                                    {
+                                        int j = i + 1;
+                                        <tr>
+                                            <td scope="row">@j</td>
+                                            <input type="hidden" asp-for="objTechSkillDetails[i].TechSkillId" />
+                                            <td class="text-start">@Html.Raw(Model.objTechSkillDetails[i].TechSkill)</td>
+                                            <td class="text-start">@Html.Raw(Model.objTechSkillDetails[i].IsBeginner)</td>
+                                            <td class="text-start">@Html.Raw(Model.objTechSkillDetails[i].IsMediator)</td>
+                                            <td class="text-start">@Html.Raw(Model.objTechSkillDetails[i].IsExpert)</td>
+                                        </tr>
+                                    }
+                                </tbody>
+                            </table>
+                        </div>
+                    </fieldset>
+                    <fieldset class="scheduler-border mb-2">
                         <legend class="scheduler-border">Preference</legend>
                         <div class="control-group">
 
@@ -140,230 +202,230 @@
                         </div>
                     </fieldset>
                     <!--<fieldset class="scheduler-border mb-2">
-                        <legend class="scheduler-border">Known Languages</legend>
-                        <div class="control-group" id="ChargesPartialId">
-                            <table class="table table-bordered" id="EducationDetails">
-                                <thead>
-                                    <tr class="text-center">-->
+        <legend class="scheduler-border">Known Languages</legend>
+        <div class="control-group" id="ChargesPartialId">
+            <table class="table table-bordered" id="EducationDetails">
+                <thead>
+                    <tr class="text-center">-->
                     @*<th scope="col">Date</th>*@
                     <!--<th scope="col"></th>
-                            <th scope="col">Language</th>
-                            <th scope="col">Read</th>
-                            <th scope="col">Write</th>
-                            <th scope="col">Speak</th>
-                            <th></th>
-                        </tr>
-                    </thead>
-                    <tbody class="text-end">
-                        <tr>-->
+            <th scope="col">Language</th>
+            <th scope="col">Read</th>
+            <th scope="col">Write</th>
+            <th scope="col">Speak</th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody class="text-end">
+        <tr>-->
                     @*<td scope="row">@j</td>*@
                     <!--<input type="hidden" id="@("hdnIsDeleted")" />-->
                     @*<td><input type="date" asp-for="ObjOperationDetailModel[0].Date" class="form-control"/></td>*@
                     <!--<td>
-                                            <div class="control-form col-md-4">
-                                                <input type="checkbox" />
-                                            </div>
-                                            <span id="ObjOperationDetailModel_From_error0" class="text-danger"></span>
-                                        </td>
-                                        <td>
-                                            <label class="form-label" style="display: block; text-align: center;">Hindi</label>
-                                            <span id="ObjOperationDetailModel_To_error0" class="text-danger"></span>
-                                        </td>
-                                        <td>
-                                            <div class="form-group row">
-                                                <div class="control-form col-md-4">
-                                                    <input type="checkbox" id="IsActive">
-                                                </div>
-                                            </div>
-                                            <span id="ObjOperationDetailModel_ETD_error0" class="text-danger"></span>
-                                        </td>
-                                        <td>
-                                            <div class="form-group row">
-                                                <div class="control-form col-md-4">
-                                                    <input type="checkbox" id="IsActive">
-                                                </div>
-                                            </div>
-                                        </td>
-                                        <td>
-                                            <div class="form-group row">
-                                                <div class="control-form col-md-4">
-                                                    <input type="checkbox" id="IsActive">
-                                                </div>
-                                            </div>
-                                        </td>
-                                    </tr>
-                                </tbody>
-                            </table>
-                            <div>
-                                <span colspan="1" class="text-end">
-                                    <input class="btn btn-primary" id="Addbutton" type="button" value="Add" />
-                                </span>
+                            <div class="control-form col-md-4">
+                                <input type="checkbox" />
                             </div>
-                        </div>
-                    </fieldset>-->
+                            <span id="ObjOperationDetailModel_From_error0" class="text-danger"></span>
+                        </td>
+                        <td>
+                            <label class="form-label" style="display: block; text-align: center;">Hindi</label>
+                            <span id="ObjOperationDetailModel_To_error0" class="text-danger"></span>
+                        </td>
+                        <td>
+                            <div class="form-group row">
+                                <div class="control-form col-md-4">
+                                    <input type="checkbox" id="IsActive">
+                                </div>
+                            </div>
+                            <span id="ObjOperationDetailModel_ETD_error0" class="text-danger"></span>
+                        </td>
+                        <td>
+                            <div class="form-group row">
+                                <div class="control-form col-md-4">
+                                    <input type="checkbox" id="IsActive">
+                                </div>
+                            </div>
+                        </td>
+                        <td>
+                            <div class="form-group row">
+                                <div class="control-form col-md-4">
+                                    <input type="checkbox" id="IsActive">
+                                </div>
+                            </div>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+            <div>
+                <span colspan="1" class="text-end">
+                    <input class="btn btn-primary" id="Addbutton" type="button" value="Add" />
+                </span>
+            </div>
+        </div>
+    </fieldset>-->
                     @*<fieldset class="scheduler-border mb-2">
-                            <legend class="scheduler-border">Request By</legend>
+            <legend class="scheduler-border">Request By</legend>
 
-                            @if (Model.userRegistrationDetails != null)
-                            {
-                                <div class="control-group">
+            @if (Model.userRegistrationDetails != null)
+            {
+                <div class="control-group">
 
-                                    <div class="row mb-2">
-                                        <div class="col-md-8">
-                                            <label class="form-label"><i class="bi bi-building"></i>Organization Name<span class="text-danger">*</span></label>
-                                            <input  class="form-control" readonly>
-                                            <span asp-validation-for="OrganizationName" class="text-danger"></span>
-                                        </div>
-                                        <div class="col-md-4">
-                                            <label for="inputEmail4" class="form-label"><i class="bi bi-r-circle"></i>Organization Registration No<span class="text-danger">*</span></label>
-                                            <input  class="form-control" readonly>
-                                            <span asp-validation-for="OrganizationRegistrationNo" class="text-danger"></span>
-                                        </div>
-                                    </div>
-                                    <div class="row mb-2">
-                                        <div class="col-md-4">
-                                            <label class="form-label"><i class="bi bi-person-circle"></i>Correspondent Person Name<span class="text-danger">*</span></label>
-                                            <input  type="text" class="form-control" placeholder="First Name" readonly>
-                                            <span asp-validation-for="CorrespondentPersonName" class="text-danger"></span>
-                                        </div>
-                                        <div class="col-md-4">
-                                            <input  type="text" class="form-control" style="margin-top: 1.7rem!important;" placeholder="Middle Name" readonly>
-                                            @*<span asp-validation-for="CorrespondentPersonMiddleName" class="text-danger"></span>
-                                        </div>
-                                        <div class="col-md-4">
-                                            <input asp-for="@Model.userRegistrationDetails.LastName" type="text" class="form-control" style="margin-top: 1.7rem!important;" placeholder="Surname" readonly>
-                                            <span asp-validation-for="CorrespondentPersonLastName" class="text-danger"></span>
-                                        </div>
-                                    </div>
-                                    <div class="row mb-2">
-                                        <div class="col-md-6">
-                                            <label class="form-label"><i class="bi bi-sim"></i>Mobile No<span class="text-danger">*</span></label>
-                                            <input asp-for="@Model.userRegistrationDetails.MobileNo" type="text" class="form-control">
-                                            <span asp-validation-for="MobileNo" class="text-danger"></span>
-                                        </div>
-                                        <div class="col-md-6">
-                                            <label class="form-label"><i class="bi bi-envelope-at"></i>Email<span class="text-danger">*</span></label>
-                                            <input asp-for="@Model.userRegistrationDetails.EmailId" type="email" class="form-control" placeholder="" readonly>
-                                            <span asp-validation-for="Email" class="text-danger"></span>
-                                        </div>
-                                    </div>
-                                </div>
-                            }
-                        </fieldset>
-                        <fieldset class="scheduler-border mb-2">
-                            <legend class="scheduler-border">Request Date Time</legend>
-                            <div class="control-group">
-                                <div class="row mb-2 ">
-                                    <div class="col-md-6">
-                                        <label class="form-label"><i class="bi bi-calendar3"></i>From Date & Time<span class="text-danger">*</span></label>
-                                        <input asp-for="ReqFromDateTime" type="text" placeholder="DD/MM/YYYY  HH:MM" class="form-control datetimepicker">
-                                        <span asp-validation-for="ReqFromDateTime" class="text-danger"></span>
-                                    </div>
-                                    <div class="col-md-6">
-                                        <label class="form-label"><i class="bi bi-calendar3"></i>To Date & Time<span class="text-danger">*</span></label>
-                                        <input asp-for="ReqToDateTime" type="text" placeholder="DD/MM/YYYY  HH:MM" class="form-control datetimepicker">
-                                        <span asp-validation-for="ReqToDateTime" class="text-danger"></span>
-                                    </div>
-                                </div>
-                                <div class="row mb-2 ">
-                                    <div class="col-md-6">
-                                        <label class="form-label"><i class="bi bi-geo-alt"></i>Hanger Location<span class="text-danger">*</span></label>
-                                        <select asp-for="HangerLocationId" asp-items="@(new SelectList(@ViewBag.HangerLocationList, "Value", "Text"))" class="form-control">
-                                            <option value="">- Please Select Hanger Location -</option>
-                                        </select>
-                                        <span asp-validation-for="HangerLocationId" class="text-danger"></span>
-                                    </div>
-                                </div>
-                            </div>
-                        </fieldset>
+                    <div class="row mb-2">
+                        <div class="col-md-8">
+                            <label class="form-label"><i class="bi bi-building"></i>Organization Name<span class="text-danger">*</span></label>
+                            <input  class="form-control" readonly>
+                            <span asp-validation-for="OrganizationName" class="text-danger"></span>
+                        </div>
+                        <div class="col-md-4">
+                            <label for="inputEmail4" class="form-label"><i class="bi bi-r-circle"></i>Organization Registration No<span class="text-danger">*</span></label>
+                            <input  class="form-control" readonly>
+                            <span asp-validation-for="OrganizationRegistrationNo" class="text-danger"></span>
+                        </div>
+                    </div>
+                    <div class="row mb-2">
+                        <div class="col-md-4">
+                            <label class="form-label"><i class="bi bi-person-circle"></i>Correspondent Person Name<span class="text-danger">*</span></label>
+                            <input  type="text" class="form-control" placeholder="First Name" readonly>
+                            <span asp-validation-for="CorrespondentPersonName" class="text-danger"></span>
+                        </div>
+                        <div class="col-md-4">
+                            <input  type="text" class="form-control" style="margin-top: 1.7rem!important;" placeholder="Middle Name" readonly>
+                            @*<span asp-validation-for="CorrespondentPersonMiddleName" class="text-danger"></span>
+                        </div>
+                        <div class="col-md-4">
+                            <input asp-for="@Model.userRegistrationDetails.LastName" type="text" class="form-control" style="margin-top: 1.7rem!important;" placeholder="Surname" readonly>
+                            <span asp-validation-for="CorrespondentPersonLastName" class="text-danger"></span>
+                        </div>
+                    </div>
+                    <div class="row mb-2">
+                        <div class="col-md-6">
+                            <label class="form-label"><i class="bi bi-sim"></i>Mobile No<span class="text-danger">*</span></label>
+                            <input asp-for="@Model.userRegistrationDetails.MobileNo" type="text" class="form-control">
+                            <span asp-validation-for="MobileNo" class="text-danger"></span>
+                        </div>
+                        <div class="col-md-6">
+                            <label class="form-label"><i class="bi bi-envelope-at"></i>Email<span class="text-danger">*</span></label>
+                            <input asp-for="@Model.userRegistrationDetails.EmailId" type="email" class="form-control" placeholder="" readonly>
+                            <span asp-validation-for="Email" class="text-danger"></span>
+                        </div>
+                    </div>
+                </div>
+            }
+        </fieldset>
+        <fieldset class="scheduler-border mb-2">
+            <legend class="scheduler-border">Request Date Time</legend>
+            <div class="control-group">
+                <div class="row mb-2 ">
+                    <div class="col-md-6">
+                        <label class="form-label"><i class="bi bi-calendar3"></i>From Date & Time<span class="text-danger">*</span></label>
+                        <input asp-for="ReqFromDateTime" type="text" placeholder="DD/MM/YYYY  HH:MM" class="form-control datetimepicker">
+                        <span asp-validation-for="ReqFromDateTime" class="text-danger"></span>
+                    </div>
+                    <div class="col-md-6">
+                        <label class="form-label"><i class="bi bi-calendar3"></i>To Date & Time<span class="text-danger">*</span></label>
+                        <input asp-for="ReqToDateTime" type="text" placeholder="DD/MM/YYYY  HH:MM" class="form-control datetimepicker">
+                        <span asp-validation-for="ReqToDateTime" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="row mb-2 ">
+                    <div class="col-md-6">
+                        <label class="form-label"><i class="bi bi-geo-alt"></i>Hanger Location<span class="text-danger">*</span></label>
+                        <select asp-for="HangerLocationId" asp-items="@(new SelectList(@ViewBag.HangerLocationList, "Value", "Text"))" class="form-control">
+                            <option value="">- Please Select Hanger Location -</option>
+                        </select>
+                        <span asp-validation-for="HangerLocationId" class="text-danger"></span>
+                    </div>
+                </div>
+            </div>
+        </fieldset>
 
-                        <fieldset class="scheduler-border mb-2">
-                            <legend class="scheduler-border">Aircraft Details</legend>
-                            <div class="control-group">
-                                <div class="row mb-2 ">
-                                    <div class="col-md-12">
-                                        <label class="form-label"><i class="bi bi-airplane-engines"></i>Aircraft Type Model<span class="text-danger">*</span></label>
-                                        <input asp-for="AircraftTypeModel" type="text" class="form-control">
-                                        <span asp-validation-for="AircraftTypeModel" class="text-danger"></span>
-                                    </div>
-                                </div>
-                                <div class="row mb-2 ">
-                                    <div class="col-md-4">
-                                        <label class="form-label"><i class="bi bi-server"></i>Aircraft AUW<span class="text-danger">*</span></label>
-                                        <input asp-for="AircraftAUW" type="number" class="form-control" placeholder="MTOW in Kgs">
-                                        <span asp-validation-for="AircraftAUW" class="text-danger"></span>
-                                    </div>
-                                    <div class="col-md-8">
-                                        <label class="form-label"><i class="bi bi-file-earmark-arrow-down"></i>Aircraft AUW Copy</label>
-                                        <div class="control-form col-md-4" id="dvAppointCatUpload">
-                                            <input type="file" asp-for="AircraftAUWFile" class="form-control">
-                                            <span asp-validation-for="AircraftAUWFile" class="text-danger"></span>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
+        <fieldset class="scheduler-border mb-2">
+            <legend class="scheduler-border">Aircraft Details</legend>
+            <div class="control-group">
+                <div class="row mb-2 ">
+                    <div class="col-md-12">
+                        <label class="form-label"><i class="bi bi-airplane-engines"></i>Aircraft Type Model<span class="text-danger">*</span></label>
+                        <input asp-for="AircraftTypeModel" type="text" class="form-control">
+                        <span asp-validation-for="AircraftTypeModel" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="row mb-2 ">
+                    <div class="col-md-4">
+                        <label class="form-label"><i class="bi bi-server"></i>Aircraft AUW<span class="text-danger">*</span></label>
+                        <input asp-for="AircraftAUW" type="number" class="form-control" placeholder="MTOW in Kgs">
+                        <span asp-validation-for="AircraftAUW" class="text-danger"></span>
+                    </div>
+                    <div class="col-md-8">
+                        <label class="form-label"><i class="bi bi-file-earmark-arrow-down"></i>Aircraft AUW Copy</label>
+                        <div class="control-form col-md-4" id="dvAppointCatUpload">
+                            <input type="file" asp-for="AircraftAUWFile" class="form-control">
+                            <span asp-validation-for="AircraftAUWFile" class="text-danger"></span>
+                        </div>
+                    </div>
+                </div>
+            </div>
 
-                        </fieldset>
+        </fieldset>
 
-                        <fieldset class="scheduler-border mb-2">
-                            <legend class="scheduler-border">Approx Charges</legend>
-                            <div class="control-group" id="ChargesPartialId">
-                                @*<table class="table table-bordered">
-                                <thead>
-                                <tr class="text-center">
-                                <th scope="col" style="width:2%">#</th>
-                                <th scope="col">Description of Services</th>
-                                <th scope="col" style="width:5%">Rate</th>
-                                <th scope="col" style="width:5%">Per</th>
-                                <th scope="col" style="width:10%">Amount</th>
-                                </tr>
-                                </thead>*@
+        <fieldset class="scheduler-border mb-2">
+            <legend class="scheduler-border">Approx Charges</legend>
+            <div class="control-group" id="ChargesPartialId">
+                @*<table class="table table-bordered">
+                <thead>
+                <tr class="text-center">
+                <th scope="col" style="width:2%">#</th>
+                <th scope="col">Description of Services</th>
+                <th scope="col" style="width:5%">Rate</th>
+                <th scope="col" style="width:5%">Per</th>
+                <th scope="col" style="width:10%">Amount</th>
+                </tr>
+                </thead>*@
                     @*<tbody class="text-end">*@
 
                     @*@for (int i = 0; i < Model.ObjChargesModel.Count; i++)
-                        {
-                        <tr>
-                        <td scope="row">@i</td>
-                        <td class="text-start">@Html.DisplayFor(modelItem => modelItem.ObjChargesModel[i].)</td>
-                        <td></td>
-                        <td></td>
-                        <td id="amt@(i)">@Html.DisplayFor(modelItem => modelItem.ObjChargesModel[i].TotalAmount)</td>
-                        </tr>
-                        }*@
+        {
+        <tr>
+        <td scope="row">@i</td>
+        <td class="text-start">@Html.DisplayFor(modelItem => modelItem.ObjChargesModel[i].)</td>
+        <td></td>
+        <td></td>
+        <td id="amt@(i)">@Html.DisplayFor(modelItem => modelItem.ObjChargesModel[i].TotalAmount)</td>
+        </tr>
+        }*@
                     @*<tr>
-                        <td scope="row">1</td>
-                        <td class="text-start">Hanger Changes</td>
-                        <td></td>
-                        <td></td>
-                        <td>612.00</td>
-                        </tr>*@
+        <td scope="row">1</td>
+        <td class="text-start">Hanger Changes</td>
+        <td></td>
+        <td></td>
+        <td>612.00</td>
+        </tr>*@
                     @*<tr>
-                        <td scope="row">3</td>
-                        <td>CGST  9%</td>
-                        <td>9</td>
-                        <td>%</td>
-                        <td id="CGST"></td>
-                        </tr>
-                        <tr>
-                        <td scope="row">4</td>
-                        <td>SGST  9%</td>
-                        <td>9</td>
-                        <td>%</td>
-                        <td id="SGST"></td>
-                        </tr>
-                        <tr class="bg-light fw-bold">
-                        <td> </td>
-                        <td>Total</td>
-                        <td></td>
-                        <td></td>
-                        <td id="totalamount"><i class="bi bi-currency-rupee"></i></td>
+        <td scope="row">3</td>
+        <td>CGST  9%</td>
+        <td>9</td>
+        <td>%</td>
+        <td id="CGST"></td>
+        </tr>
+        <tr>
+        <td scope="row">4</td>
+        <td>SGST  9%</td>
+        <td>9</td>
+        <td>%</td>
+        <td id="SGST"></td>
+        </tr>
+        <tr class="bg-light fw-bold">
+        <td> </td>
+        <td>Total</td>
+        <td></td>
+        <td></td>
+        <td id="totalamount"><i class="bi bi-currency-rupee"></i></td>
 
-                        </tr>
-                        </tbody>*@
+        </tr>
+        </tbody>*@
                     @* </table>*@
                     @*  </div>
 
-                        </fieldset>*@
+        </fieldset>*@
                 </div>
             </div>
 

@@ -17,7 +17,8 @@ namespace Job.Common
             //GetAllTaluka = 4,
             //GetAllCity = 5
             EducationType =1,
-            LanguageType=2
+            LanguageType=2,
+            TechSkillType = 3
             //GetHangerType = 2,
             //    GetStructureType =3,
             //    StateMaster = 4,

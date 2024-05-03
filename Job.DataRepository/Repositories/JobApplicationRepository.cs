@@ -40,8 +40,8 @@ namespace Job.DataRepository.Repositories
                     queryParameters.Add("@IPAddress", jobApplicationDetails.IPAddress);
                     queryParameters.Add("@HostName", jobApplicationDetails.HostName);
                     queryParameters.Add("@dtEducationDetails", jobApplicationDetails.dtEducationDetails, DbType.Object);
-                    //queryParameters.Add("@dtLanguageDetails", jobApplicationDetails.dtLanguageDetails, DbType.Object);
-                    //queryParameters.Add("@dtTechSkillDetails", jobApplicationDetails.dtTechSkillDetails, DbType.Object);
+                    queryParameters.Add("@dtLanguageDetails", jobApplicationDetails.dtLanguageDetails, DbType.Object);
+                    queryParameters.Add("@dtTechSkillDetails", jobApplicationDetails.dtTechSkillDetails, DbType.Object);
                     queryParameters.Add("@dtWorkExpDetails", jobApplicationDetails.dtWorkExpDetails, DbType.Object);
                     var result = await conn.QueryFirstOrDefaultAsync<ResponseMessage>("AddUpdateJobApplication", queryParameters, commandType: CommandType.StoredProcedure);
                     return result;
