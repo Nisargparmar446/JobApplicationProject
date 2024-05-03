@@ -12,6 +12,7 @@
     {
         modelWorkCnt = @Model.objWorkExpDetails.Count();
     }
+   
 }
 
 
@@ -83,7 +84,7 @@
                                         {
                                             <tr>
                                                 @*<td scope="row">@j</td>*@
-                                                <input type="hidden" id="@("hdnIsDeleted"+i)" asp-for="objEducationDetails[i].IsDeleted"/>
+                                                <input type="hidden" id="@("hdnIsDeleted"+i)" asp-for="objEducationDetails[i].IsDeleted" />
                                                 @*<td><input type="date" asp-for="ObjOperationDetailModel[0].Date" class="form-control"/></td>*@
                                                 <td>
                                                     <select asp-for="objEducationDetails[i].EducationId" asp-items="@(new SelectList(ViewBag.EducationType, "Value", "Text"))" class="form-select">
@@ -93,7 +94,7 @@
                                                 </td>
                                                 <td>
                                                     <input type="text" asp-for="objEducationDetails[i].University" class="form-control" />
-                                                    <span id="@("objEducationDetails_University_error"+i)"  class="text-danger"></span>
+                                                    <span id="@("objEducationDetails_University_error"+i)" class="text-danger"></span>
                                                 </td>
                                                 <td>
                                                     <input type="text" asp-for="objEducationDetails[i].PassoutYear" class="form-control" />
@@ -108,13 +109,13 @@
                                                     <td><input class="btn btn-danger" type="button" value="Remove" onclick="RemoveTextBox(this,'@i');"></td>
                                                 }
                                             </tr>
-                                            }
                                         }
+                                    }
                                     else
                                     {
                                         <tr>
                                             @*<td scope="row">@j</td>*@
-                                            <input type="hidden" id="@("hdnIsDeleted")" asp-for="objEducationDetails[0].IsDeleted" />
+                                            <input type="hidden" id="@("hdnIsDeleted")" asp-for="objEducationDetails[0].IsDeleted" value="false" />
                                             @*<td><input type="date" asp-for="ObjOperationDetailModel[0].Date" class="form-control"/></td>*@
                                             <td>
                                                 <select asp-for="objEducationDetails[0].EducationId" asp-items="@(new SelectList(ViewBag.EducationType, "Value", "Text"))" class="form-select">
@@ -165,15 +166,15 @@
                                         @for (int i = 0; i < Model.objWorkExpDetails.Count(); i++)
                                         {
                                             <tr>
-                                                <input type="hidden" id="@("hdnIsDeletedWork"+i)" asp-for="objWorkExpDetails[i].IsDeleted"/>
+                                                <input type="hidden" id="@("hdnIsDeletedWork"+i)" asp-for="objWorkExpDetails[i].IsDeleted" />
                                                 @*<td><input type="date" asp-for="ObjOperationDetailModel[0].Date" class="form-control"/></td>*@
                                                 <td>
                                                     <input type="text" asp-for="objWorkExpDetails[i].Company" class="form-control" />
-                                                    <span id="@("objEducationDetails_Company_error"+i)"  class="text-danger"></span>
+                                                    <span id="@("objEducationDetails_Company_error"+i)" class="text-danger"></span>
                                                 </td>
                                                 <td>
                                                     <input type="text" asp-for="objWorkExpDetails[i].Designation" class="form-control" />
-                                                    <span id="@("objEducationDetails_Designation_error"+i)"  class="text-danger"></span>
+                                                    <span id="@("objEducationDetails_Designation_error"+i)" class="text-danger"></span>
                                                 </td>
                                                 <td>
                                                     <input type="date" asp-for="objWorkExpDetails[i].ExpFromDate" class="form-control" />
@@ -193,7 +194,7 @@
                                     else
                                     {
                                         <tr>
-                                            <input type="hidden" id="@("hdnIsDeletedWork")" asp-for="objWorkExpDetails[0].IsDeleted" />
+                                            <input type="hidden" id="@("hdnIsDeletedWork")" asp-for="objWorkExpDetails[0].IsDeleted" value="false" />
                                             @*<td><input type="date" asp-for="ObjOperationDetailModel[0].Date" class="form-control"/></td>*@
                                             <td>
                                                 <input type="text" asp-for="objWorkExpDetails[0].Company" class="form-control" />
@@ -221,6 +222,195 @@
                                     <input class="btn btn-primary" id="AddWorkExpbutton" type="button" value="Add" />
                                 </span>
                             </div>
+                        </div>
+                    </fieldset>
+
+                    <fieldset class="scheduler-border mb-2">
+                        <legend class="scheduler-border">Known Languages</legend>
+                        <div class="control-group" id="">
+                            <table class="table table-bordered" id="LanguaDetails">
+                                <thead>
+                                    <tr class="text-center">
+                                        <th scope="col"></th>
+                                        <th scope="col">Language</th>
+                                        <th scope="col">Read</th>
+                                        <th scope="col">Write</th>
+                                        <th scope="col">Speak</th>
+                                        <th></th>
+                                    </tr>
+                                </thead>
+                                <tbody class="text-end">
+                                    @if (Model != null && Model.objLanguageDetails != null && Model.objLanguageDetails.Count() > 0)
+                                    {
+                                        @foreach (var item in ViewBag.LanguageType)
+                                        {
+                                            <tr>
+                                                <td>
+                                                    <div class="control-form col-md-4">
+                                                        <input type="checkbox" name="LanguageId" value="@item.Value" @(Model.objLanguageDetails.Any(ld => ld.LanguageId.ToString() == item.Value) ? "checked" : "") />
+                                                    </div>
+                                                </td>
+                                                <td>
+                                                    <label class="form-label" style="display: block; text-align: center;">@item.Text</label>
+                                                </td>
+                                                <td>
+                                                    <div class="form-group row">
+                                                        <div class="control-form col-md-4">
+                                                            <input type="checkbox" name="IsRead_@item.Value"  id="IsRead_@item.Value" @(Model.objLanguageDetails.Any(ld => ld.LanguageId.ToString() == item.Value && ld.IsRead == true) ? "checked" : "") disabled>
+                                                        </div>
+                                                    </div>
+                                                </td>
+                                                <td>
+                                                    <div class="form-group row">
+                                                        <div class="control-form col-md-4">
+                                                            <input type="checkbox" name="IsWrite_@item.Value"  id="IsWrite_@item.Value" @(Model.objLanguageDetails.Any(ld => ld.LanguageId.ToString() == item.Value && ld.IsWrite == true) ? "checked" : "") disabled>
+                                                        </div>
+                                                    </div>
+                                                </td>
+                                                <td>
+                                                    <div class="form-group row">
+                                                        <div class="control-form col-md-4">
+                                                            <input type="checkbox" name="IsSpeak_@item.Value"  id="IsSpeak_@item.Value" @(Model.objLanguageDetails.Any(ld => ld.LanguageId.ToString() == item.Value && ld.IsSpeak == true) ? "checked" : "") disabled>
+                                                        </div>
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                        }
+
+                                    }
+                                    else
+                                    {
+                                        @foreach (var item in ViewBag.LanguageType)
+                                        {
+                                            <tr>
+                                                <td>
+                                                    <div class="control-form col-md-4">
+                                                        <input type="checkbox" name="LanguageId" value="@item.Value" />
+                                                    </div>
+                                                </td>
+                                                <td>
+                                                    <label class="form-label" style="display: block; text-align: center;">@item.Text</label>
+                                                </td>
+                                                <td>
+                                                    <div class="form-group row">
+                                                        <div class="control-form col-md-4">
+                                                            <input type="checkbox" name="IsRead_@item.Value" id="IsRead_@item.Value" disabled>
+                                                        </div>
+                                                    </div>
+                                                </td>
+                                                <td>
+                                                    <div class="form-group row">
+                                                        <div class="control-form col-md-4">
+                                                            <input type="checkbox" name="IsWrite_@item.Value" id="IsWrite_@item.Value" disabled>
+                                                        </div>
+                                                    </div>
+                                                </td>
+                                                <td>
+                                                    <div class="form-group row">
+                                                        <div class="control-form col-md-4">
+                                                            <input type="checkbox" name="IsSpeak_@item.Value" id="IsSpeak_@item.Value" disabled>
+                                                        </div>
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                        }
+                                    }
+                                </tbody>
+                            </table>
+                        </div>
+                    </fieldset>
+                    <fieldset class="scheduler-border mb-2">
+                        <legend class="scheduler-border">Technical Skills</legend>
+                        <div class="control-group" id="">
+                            <table class="table table-bordered" id="TechSkillDetails">
+                                <thead>
+                                    <tr class="text-center">
+                                        <th scope="col"></th>
+                                        <th scope="col">Tech Skill</th>
+                                        <th scope="col">Beginner</th>
+                                        <th scope="col">Intermediate</th>
+                                        <th scope="col">Expert</th>
+                                        <th></th>
+                                    </tr>
+                                </thead>
+                                <tbody class="text-end">
+                                    @if (Model != null && Model.objTechSkillDetails != null && Model.objTechSkillDetails.Count() > 0)
+                                    {
+                                        
+                                        @foreach (var item in ViewBag.TechSkillType)
+                                        {
+                                            <tr>
+                                                <td>
+                                                    <div class="control-form col-md-4">
+                                                        <input type="checkbox" name="TechSkillId" value="@item.Value" @(Model.objTechSkillDetails.Any(ld => ld.TechSkillId.ToString() == item.Value) ? "checked" : "")/>
+                                                    </div>
+                                                </td>
+                                                <td>
+                                                    <label class="form-label" style="display: block; text-align: center;">@item.Text</label>
+                                                </td>
+                                                <td>
+                                                    <div class="form-group row">
+                                                        <div class="control-form col-md-4">
+                                                            <input type="radio" name="IsTechSkill_@item.Value" value="Beginner" id="IsBeginner_@item.Value" @(Model.objTechSkillDetails.Any(ld => ld.TechSkillId.ToString() == item.Value && ld.IsBeginner == true) ? "checked" : "") disabled>
+                                                        </div>
+                                                    </div>
+                                                </td>
+                                                <td>
+                                                    <div class="form-group row">
+                                                        <div class="control-form col-md-4">
+                                                            <input type="radio" name="IsTechSkill_@item.Value" value="Intermediate" id="IsIntermediate_@item.Value" @(Model.objTechSkillDetails.Any(ld => ld.TechSkillId.ToString() == item.Value && ld.IsMediator == true) ? "checked" : "") disabled>
+                                                        </div>
+                                                    </div>
+                                                </td>
+                                                <td>
+                                                    <div class="form-group row">
+                                                        <div class="control-form col-md-4">
+                                                            <input type="radio" name="IsTechSkill_@item.Value" value="Expert" id="IsExpert_@item.Value" @(Model.objTechSkillDetails.Any(ld => ld.TechSkillId.ToString() == item.Value && ld.IsExpert == true) ? "checked" : "") disabled>
+                                                        </div>
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                        }
+                                    }
+                                    else
+                                    {
+                                        @foreach (var item in ViewBag.TechSkillType)
+                                        {
+                                            <tr>
+                                                <td>
+                                                    <div class="control-form col-md-4">
+                                                        <input type="checkbox" name="TechSkillId" value="@item.Value" />
+                                                    </div>
+                                                </td>
+                                                <td>
+                                                    <label class="form-label" style="display: block; text-align: center;">@item.Text</label>
+                                                </td>
+                                                <td>
+                                                    <div class="form-group row">
+                                                        <div class="control-form col-md-4">
+                                                            <input type="radio" name="IsTechSkill_@item.Value" value="Beginner" id="IsBeginner_@item.Value" disabled>
+                                                        </div>
+                                                    </div>
+                                                </td>
+                                                <td>
+                                                    <div class="form-group row">
+                                                        <div class="control-form col-md-4">
+                                                            <input type="radio" name="IsTechSkill_@item.Value" value="Intermediate" id="IsIntermediate_@item.Value" disabled>
+                                                        </div>
+                                                    </div>
+                                                </td>
+                                                <td>
+                                                    <div class="form-group row">
+                                                        <div class="control-form col-md-4">
+                                                            <input type="radio" name="IsTechSkill_@item.Value" value="Expert" id="IsExpert_@item.Value" disabled>
+                                                        </div>
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                        }
+                                    }
+                                </tbody>
+                            </table>
                         </div>
                     </fieldset>
                     <fieldset class="scheduler-border mb-2">
@@ -259,231 +449,6 @@
                             </div>
                         </div>
                     </fieldset>
-                    <!--<fieldset class="scheduler-border mb-2">
-                        <legend class="scheduler-border">Known Languages</legend>
-                        <div class="control-group" id="ChargesPartialId">
-                            <table class="table table-bordered" id="EducationDetails">
-                                <thead>
-                                    <tr class="text-center">-->
-                    @*<th scope="col">Date</th>*@
-                    <!--<th scope="col"></th>
-                            <th scope="col">Language</th>
-                            <th scope="col">Read</th>
-                            <th scope="col">Write</th>
-                            <th scope="col">Speak</th>
-                            <th></th>
-                        </tr>
-                    </thead>
-                    <tbody class="text-end">
-                        <tr>-->
-                    @*<td scope="row">@j</td>*@
-                    <!--<input type="hidden" id="@("hdnIsDeleted")" />-->
-                    @*<td><input type="date" asp-for="ObjOperationDetailModel[0].Date" class="form-control"/></td>*@
-                    <!--<td>
-                                            <div class="control-form col-md-4">
-                                                <input type="checkbox" />
-                                            </div>
-                                            <span id="ObjOperationDetailModel_From_error0" class="text-danger"></span>
-                                        </td>
-                                        <td>
-                                            <label class="form-label" style="display: block; text-align: center;">Hindi</label>
-                                            <span id="ObjOperationDetailModel_To_error0" class="text-danger"></span>
-                                        </td>
-                                        <td>
-                                            <div class="form-group row">
-                                                <div class="control-form col-md-4">
-                                                    <input type="checkbox" id="IsActive">
-                                                </div>
-                                            </div>
-                                            <span id="ObjOperationDetailModel_ETD_error0" class="text-danger"></span>
-                                        </td>
-                                        <td>
-                                            <div class="form-group row">
-                                                <div class="control-form col-md-4">
-                                                    <input type="checkbox" id="IsActive">
-                                                </div>
-                                            </div>
-                                        </td>
-                                        <td>
-                                            <div class="form-group row">
-                                                <div class="control-form col-md-4">
-                                                    <input type="checkbox" id="IsActive">
-                                                </div>
-                                            </div>
-                                        </td>
-                                    </tr>
-                                </tbody>
-                            </table>
-                            <div>
-                                <span colspan="1" class="text-end">
-                                    <input class="btn btn-primary" id="Addbutton" type="button" value="Add" />
-                                </span>
-                            </div>
-                        </div>
-                    </fieldset>-->
-                    @*<fieldset class="scheduler-border mb-2">
-                            <legend class="scheduler-border">Request By</legend>
-
-                            @if (Model.userRegistrationDetails != null)
-                            {
-                                <div class="control-group">
-
-                                    <div class="row mb-2">
-                                        <div class="col-md-8">
-                                            <label class="form-label"><i class="bi bi-building"></i>Organization Name<span class="text-danger">*</span></label>
-                                            <input  class="form-control" readonly>
-                                            <span asp-validation-for="OrganizationName" class="text-danger"></span>
-                                        </div>
-                                        <div class="col-md-4">
-                                            <label for="inputEmail4" class="form-label"><i class="bi bi-r-circle"></i>Organization Registration No<span class="text-danger">*</span></label>
-                                            <input  class="form-control" readonly>
-                                            <span asp-validation-for="OrganizationRegistrationNo" class="text-danger"></span>
-                                        </div>
-                                    </div>
-                                    <div class="row mb-2">
-                                        <div class="col-md-4">
-                                            <label class="form-label"><i class="bi bi-person-circle"></i>Correspondent Person Name<span class="text-danger">*</span></label>
-                                            <input  type="text" class="form-control" placeholder="First Name" readonly>
-                                            <span asp-validation-for="CorrespondentPersonName" class="text-danger"></span>
-                                        </div>
-                                        <div class="col-md-4">
-                                            <input  type="text" class="form-control" style="margin-top: 1.7rem!important;" placeholder="Middle Name" readonly>
-                                            @*<span asp-validation-for="CorrespondentPersonMiddleName" class="text-danger"></span>
-                                        </div>
-                                        <div class="col-md-4">
-                                            <input asp-for="@Model.userRegistrationDetails.LastName" type="text" class="form-control" style="margin-top: 1.7rem!important;" placeholder="Surname" readonly>
-                                            <span asp-validation-for="CorrespondentPersonLastName" class="text-danger"></span>
-                                        </div>
-                                    </div>
-                                    <div class="row mb-2">
-                                        <div class="col-md-6">
-                                            <label class="form-label"><i class="bi bi-sim"></i>Mobile No<span class="text-danger">*</span></label>
-                                            <input asp-for="@Model.userRegistrationDetails.MobileNo" type="text" class="form-control">
-                                            <span asp-validation-for="MobileNo" class="text-danger"></span>
-                                        </div>
-                                        <div class="col-md-6">
-                                            <label class="form-label"><i class="bi bi-envelope-at"></i>Email<span class="text-danger">*</span></label>
-                                            <input asp-for="@Model.userRegistrationDetails.EmailId" type="email" class="form-control" placeholder="" readonly>
-                                            <span asp-validation-for="Email" class="text-danger"></span>
-                                        </div>
-                                    </div>
-                                </div>
-                            }
-                        </fieldset>
-                        <fieldset class="scheduler-border mb-2">
-                            <legend class="scheduler-border">Request Date Time</legend>
-                            <div class="control-group">
-                                <div class="row mb-2 ">
-                                    <div class="col-md-6">
-                                        <label class="form-label"><i class="bi bi-calendar3"></i>From Date & Time<span class="text-danger">*</span></label>
-                                        <input asp-for="ReqFromDateTime" type="text" placeholder="DD/MM/YYYY  HH:MM" class="form-control datetimepicker">
-                                        <span asp-validation-for="ReqFromDateTime" class="text-danger"></span>
-                                    </div>
-                                    <div class="col-md-6">
-                                        <label class="form-label"><i class="bi bi-calendar3"></i>To Date & Time<span class="text-danger">*</span></label>
-                                        <input asp-for="ReqToDateTime" type="text" placeholder="DD/MM/YYYY  HH:MM" class="form-control datetimepicker">
-                                        <span asp-validation-for="ReqToDateTime" class="text-danger"></span>
-                                    </div>
-                                </div>
-                                <div class="row mb-2 ">
-                                    <div class="col-md-6">
-                                        <label class="form-label"><i class="bi bi-geo-alt"></i>Hanger Location<span class="text-danger">*</span></label>
-                                        <select asp-for="HangerLocationId" asp-items="@(new SelectList(@ViewBag.HangerLocationList, "Value", "Text"))" class="form-control">
-                                            <option value="">- Please Select Hanger Location -</option>
-                                        </select>
-                                        <span asp-validation-for="HangerLocationId" class="text-danger"></span>
-                                    </div>
-                                </div>
-                            </div>
-                        </fieldset>
-
-                        <fieldset class="scheduler-border mb-2">
-                            <legend class="scheduler-border">Aircraft Details</legend>
-                            <div class="control-group">
-                                <div class="row mb-2 ">
-                                    <div class="col-md-12">
-                                        <label class="form-label"><i class="bi bi-airplane-engines"></i>Aircraft Type Model<span class="text-danger">*</span></label>
-                                        <input asp-for="AircraftTypeModel" type="text" class="form-control">
-                                        <span asp-validation-for="AircraftTypeModel" class="text-danger"></span>
-                                    </div>
-                                </div>
-                                <div class="row mb-2 ">
-                                    <div class="col-md-4">
-                                        <label class="form-label"><i class="bi bi-server"></i>Aircraft AUW<span class="text-danger">*</span></label>
-                                        <input asp-for="AircraftAUW" type="number" class="form-control" placeholder="MTOW in Kgs">
-                                        <span asp-validation-for="AircraftAUW" class="text-danger"></span>
-                                    </div>
-                                    <div class="col-md-8">
-                                        <label class="form-label"><i class="bi bi-file-earmark-arrow-down"></i>Aircraft AUW Copy</label>
-                                        <div class="control-form col-md-4" id="dvAppointCatUpload">
-                                            <input type="file" asp-for="AircraftAUWFile" class="form-control">
-                                            <span asp-validation-for="AircraftAUWFile" class="text-danger"></span>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-
-                        </fieldset>
-
-                        <fieldset class="scheduler-border mb-2">
-                            <legend class="scheduler-border">Approx Charges</legend>
-                            <div class="control-group" id="ChargesPartialId">
-                                @*<table class="table table-bordered">
-                                <thead>
-                                <tr class="text-center">
-                                <th scope="col" style="width:2%">#</th>
-                                <th scope="col">Description of Services</th>
-                                <th scope="col" style="width:5%">Rate</th>
-                                <th scope="col" style="width:5%">Per</th>
-                                <th scope="col" style="width:10%">Amount</th>
-                                </tr>
-                                </thead>*@
-                    @*<tbody class="text-end">*@
-
-                    @*@for (int i = 0; i < Model.ObjChargesModel.Count; i++)
-                        {
-                        <tr>
-                        <td scope="row">@i</td>
-                        <td class="text-start">@Html.DisplayFor(modelItem => modelItem.ObjChargesModel[i].)</td>
-                        <td></td>
-                        <td></td>
-                        <td id="amt@(i)">@Html.DisplayFor(modelItem => modelItem.ObjChargesModel[i].TotalAmount)</td>
-                        </tr>
-                        }*@
-                    @*<tr>
-                        <td scope="row">1</td>
-                        <td class="text-start">Hanger Changes</td>
-                        <td></td>
-                        <td></td>
-                        <td>612.00</td>
-                        </tr>*@
-                    @*<tr>
-                        <td scope="row">3</td>
-                        <td>CGST  9%</td>
-                        <td>9</td>
-                        <td>%</td>
-                        <td id="CGST"></td>
-                        </tr>
-                        <tr>
-                        <td scope="row">4</td>
-                        <td>SGST  9%</td>
-                        <td>9</td>
-                        <td>%</td>
-                        <td id="SGST"></td>
-                        </tr>
-                        <tr class="bg-light fw-bold">
-                        <td> </td>
-                        <td>Total</td>
-                        <td></td>
-                        <td></td>
-                        <td id="totalamount"><i class="bi bi-currency-rupee"></i></td>
-
-                        </tr>
-                        </tbody>*@
-                    @* </table>*@
-                    @*  </div>
-
-                        </fieldset>*@
 
                 </div>
                 <div class="card-footer g-3 text-end">
@@ -493,13 +458,29 @@
 
         </div>
     </div>
-    <input type="hidden" asp-for="JobApplicationId"> 
+    <input type="hidden" asp-for="JobApplicationId">
 </form>
 <script src="~/js/sweet-alert.min.js"></script>
 <script src="~/js/jquery-3.3.1.min.js"></script>
 <script src="~/js/site.js"></script>
 <script type="text/javascript">
     $(document).ready(function () {
+    });
+    document.getElementsByName("LanguageId").forEach(function (checkbox) {
+        checkbox.addEventListener("change", function () {
+            var languageId = this.value;
+            document.getElementsByName("IsRead_" + languageId)[0].disabled = false;
+            document.getElementsByName("IsWrite_" + languageId)[0].disabled = false;
+            document.getElementsByName("IsSpeak_" + languageId)[0].disabled = false;
+        });
+    });
+    document.getElementsByName("TechSkillId").forEach(function (checkbox) {
+        checkbox.addEventListener("change", function () {
+            var techSkillId = this.value;
+            document.getElementsByName("IsTechSkill_" + techSkillId).forEach(function (radio) {
+                radio.disabled = !checkbox.checked;
+            });
+        });
     });
     var ttlCount = @modelEduCnt;
     var removeCount = 0;
@@ -512,7 +493,7 @@
 
             var strHTML = "";
            strHTML += "<tr id='tr" + ttlCount + "'>";
-        strHTML += "<input type='hidden' id='hdnIsDeleted" + ttlCount + "' name='objEducationDetails[" + ttlCount + "].IsDeleted'>";
+            strHTML += "<input type='hidden' id='hdnIsDeleted" + ttlCount + "' name='objEducationDetails[" + ttlCount + "].IsDeleted' value='false'>";
         //strHTML += " <td><input name='objEducationDetails[" + ttlCount + "].EducationId' id='objEducationDetails_" + ttlCount + "__EducationId'  type='text' class='form-control'>";
             strHTML += " <td><select class= 'form-select educationdropdown' name='objEducationDetails[" + ttlCount + "].EducationId' id='objEducationDetails_" + ttlCount + "__EducationId'>";
             strHTML += "<option value='' selected>--Select Education--</option></select>";
@@ -551,7 +532,7 @@ $.each(eduType, function (index, item) {
         if (flag) {
             var strHTML = "";
         strHTML += "<tr id='tr" + ttlWorkCount + "'>";
-        strHTML += "<input type='hidden' id='hdnIsDeletedWork" + ttlWorkCount + "' name='objWorkExpDetails[" + ttlWorkCount + "].IsDeleted'>";
+            strHTML += "<input type='hidden' id='hdnIsDeletedWork" + ttlWorkCount + "' name='objWorkExpDetails[" + ttlWorkCount + "].IsDeleted' value='false'>";
         strHTML += " <td><input name='objWorkExpDetails[" + ttlWorkCount + "].Company' id='objWorkExpDetails_" + ttlWorkCount + "__Company'  type='text' class='form-control'>";
         strHTML += "<span id='objWorkExpDetails_Company_error" + ttlWorkCount + "' class='text-danger'></span></td>";
         strHTML += " <td><input name='objWorkExpDetails[" + ttlWorkCount + "].Designation' id='objWorkExpDetails_" + ttlWorkCount + "__Designation'  type='text' class='form-control'>";

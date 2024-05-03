@@ -19,7 +19,7 @@ namespace Job.Abstraction.ViewDataModels
         public List<LanguageDetails>? objLanguageDetails { get; set; }
         public List<TechSkillDetails>? objTechSkillDetails { get; set; }
         public long UserId { get; set; }
-        public long JobApplicationId { get; set; }
+        public long? JobApplicationId { get; set; }
         [Required(ErrorMessage = "Please Enter Name.")]
         public string ApplicantName { get; set; }
         [Required(ErrorMessage = "Please Enter EmailId.")]
@@ -76,6 +76,7 @@ namespace Job.Abstraction.ViewDataModels
         public long? LanguageDetailId { get; set; }
         public long? JobApplicationId { get; set; }
         public long? LanguageId { get; set; }
+        public string? Language { get; set; }
         public bool? IsRead { get; set; }
         public bool? IsWrite { get; set; }
         public bool? IsSpeak { get; set; }
@@ -87,6 +88,7 @@ namespace Job.Abstraction.ViewDataModels
         public long? TechSkillDetailId { get; set; }
         public long? JobApplicationId { get; set; }
         public long? TechSkillId { get; set; }
+        public string? TechSkill { get; set; }
         public bool? IsBeginner { get; set; }
         public bool? IsMediator { get; set; }
         public bool? IsExpert { get; set; }

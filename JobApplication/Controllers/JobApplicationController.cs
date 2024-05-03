@@ -41,6 +41,8 @@ namespace Job.Controllers
         public IActionResult JobApplication()
         {
             BindDropDown(1);
+            BindDropDown(2);
+            BindDropDown(3);
             return View("GetJobApplication");
         }
         [Authorize(Roles = "Admin")]
@@ -67,13 +69,100 @@ namespace Job.Controllers
             try
             {
                 ResponseMessage regResponse = new ResponseMessage();
+                var form = HttpContext.Request.Form;
                 var ObjEducationDetailsList = new List<EducationDetails>();
                 var ObjWorkExpDetailsList = new List<WorkExpDetails>();
+                var ObjLanguageDetailsList = new List<LanguageDetails>();
+                var ObjTechSkillDetailsList = new List<TechSkillDetails>();
+                jobApplicationDetails.JobApplicationId = (!string.IsNullOrEmpty(jobApplicationDetails.JobApplicationId.ToString())) ? jobApplicationDetails.JobApplicationId : 0;
                 var jobAppId = jobApplicationDetails.JobApplicationId;
                 if (ModelState.IsValid)
                 {
                     jobApplicationDetails.IPAddress = _httpContextAccessor.HttpContext.Connection.RemoteIpAddress.ToString();
                     jobApplicationDetails.UserId = Convert.ToInt32(_claimPincipal.FindFirstValue(ClaimTypes.NameIdentifier));
+
+                    if (jobApplicationDetails.objLanguageDetails == null)
+                    {
+                        jobApplicationDetails.objLanguageDetails = new List<LanguageDetails>();
+                    }
+                    if (jobApplicationDetails.objTechSkillDetails == null)
+                    {
+                        jobApplicationDetails.objTechSkillDetails = new List<TechSkillDetails>();
+                    }
+                    
+                    jobApplicationDetails.objLanguageDetails.Clear();
+                    jobApplicationDetails.objTechSkillDetails.Clear();
+                    
+                    foreach (string key in form.Keys.Cast<string>())
+                    {
+                        if (key.StartsWith("LanguageId"))
+                        {
+                            var languageId = form[key];
+                            //var languageDetail = new LanguageDetails
+                            //{
+                            //    LanguageId = Convert.ToInt64(languageId),
+                            //    IsRead = form["IsRead_" + languageId].Contains("true"),
+                            //    IsWrite = form["IsWrite_" + languageId].Contains("true"),
+                            //    IsSpeak = form["IsSpeak_" + languageId].Contains("true")
+                            //};
+
+                                var languageIds = languageId.ToString().Split(',');
+
+                                foreach (var id in languageIds)
+                                {
+                                    if (long.TryParse(id, out long parsedLanguageId))
+                                    {
+                                        var languageDetail = new LanguageDetails
+                                        {
+                                            LanguageId = parsedLanguageId,
+                                            IsRead = form.TryGetValue("IsRead_" + id, out var isReadValue) && isReadValue == "on",
+                                            IsWrite = form.TryGetValue("IsWrite_" + id, out var isWriteValue) && isWriteValue == "on",
+                                            IsSpeak = form.TryGetValue("IsSpeak_" + id, out var isSpeakValue) && isSpeakValue == "on"
+                                        };
+                                            ObjLanguageDetailsList.Add(languageDetail);
+                                    }
+                                    else
+                                    {
+                                    }
+                                }
+                            var dtLang = ToDataTable(ObjLanguageDetailsList);
+                            jobApplicationDetails.dtLanguageDetails = dtLang;
+                        }
+                        if (key.StartsWith("TechSkillId"))
+                        {
+                            var techSkillId = form[key];
+                            //var languageDetail = new LanguageDetails
+                            //{
+                            //    LanguageId = Convert.ToInt64(languageId),
+                            //    IsRead = form["IsRead_" + languageId].Contains("true"),
+                            //    IsWrite = form["IsWrite_" + languageId].Contains("true"),
+                            //    IsSpeak = form["IsSpeak_" + languageId].Contains("true")
+                            //};
+
+                            var techSkillIds = techSkillId.ToString().Split(',');
+
+                            foreach (var id in techSkillIds)
+                            {
+                                if (long.TryParse(id, out long parsedTechSkillId))
+                                {
+                                    var techSkillDetail = new TechSkillDetails
+                                    {
+                                        TechSkillId = parsedTechSkillId,
+                                        IsBeginner = form["IsTechSkill_" + id] == "Beginner",
+                                        IsMediator = form["IsTechSkill_" + id] == "Intermediate",
+                                        IsExpert = form["IsTechSkill_" + id] == "Expert"
+                                    };
+                                    ObjTechSkillDetailsList.Add(techSkillDetail);
+                                }
+                                else
+                                {
+                                }
+                            }
+                            var dtTech = ToDataTable(ObjTechSkillDetailsList);
+                            jobApplicationDetails.dtTechSkillDetails = dtTech;
+                        }
+                    }
+
 
                     foreach (var item in jobApplicationDetails.objEducationDetails)
                     {
@@ -181,6 +270,8 @@ namespace Job.Controllers
                 JobApplicationDetails jobApplicationDetails = await _iJobApplicationService.GetJobApplicationById(JobApplicationId);
                 
                 BindDropDown(1);
+                BindDropDown(2);
+                BindDropDown(3);
                 return View(jobApplicationDetails);
             }
             catch (Exception ex)
@@ -243,18 +334,13 @@ namespace Job.Controllers
         {
             ViewBag.EducationType = _dropdownMasterService.GetDropDownMaster(Convert.ToInt32(CommonEnums.DropdownMasterType.EducationType), 0)
                     .Select(c => new SelectListItem() { Text = c.Text, Value = c.Value }).ToList();
-                    
-            //ViewBag.EducationType = new List<SelectListItem>
-            //    {
-            //        new SelectListItem { Text = "SSC", Value = "1" },
-            //        new SelectListItem { Text = "HSC", Value = "2" }
-            //    };
 
-            //ViewBag.LanguageType = _dropdownMasterService.GetDropDownMaster(Convert.ToInt32(CommonEnums.DropdownMasterType.LanguageType), 0)
-            //        //.Select(c => new SelectListItem() { Text = c.Text, Value = c.Value }).ToList();
-            //        .Select(c => new SelectListItem() { Text = "Hindi", Value = "1" }).ToList();
+            ViewBag.LanguageType = _dropdownMasterService.GetDropDownMaster(Convert.ToInt32(CommonEnums.DropdownMasterType.LanguageType), 0)
+                    .Select(c => new SelectListItem() { Text = c.Text, Value = c.Value }).ToList();
+            ViewBag.TechSkillType = _dropdownMasterService.GetDropDownMaster(Convert.ToInt32(CommonEnums.DropdownMasterType.TechSkillType), 0)
+                    .Select(c => new SelectListItem() { Text = c.Text, Value = c.Value }).ToList();
 
-            
+
         }
         public static DataTable ToDataTable<T>(List<T> items)
         {
